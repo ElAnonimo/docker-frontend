@@ -1,0 +1,11 @@
+FROM node:alpine
+
+WORKDIR '/app'
+
+# copy ./package.json to WORKDIR (./app in container)
+COPY ./package.json ./
+RUN yarn install
+# copy everything else to WORKDIR
+COPY ./ ./
+
+CMD ["yarn", "run", "start"]
