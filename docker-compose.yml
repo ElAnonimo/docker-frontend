@@ -2,13 +2,13 @@ version: '3'
 services:           # services are containers ran on `docker-compose up`
   web:
     build:          # `build: .` for the default Dockerfile but since we have Dockerfile.dev instead...
-      context: .    # `context: .` to pull all the files to build the project from the pwd
+      context: .    # `context: .` to pull all the files from the pwd to build the project
       dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
     volumes:
       - /app/node_modules
-      - .:/app      # . for pwd. Like $(pwd):/app with `docker run` command
+      - .:/app      # . for pwd. Like `$(pwd):/app` with `docker run` command
                     # volumes mapping with `docker`: sudo docker run -p 3000:3000 -v /app/node_modules -v $(pwd):/app 019f4fe6e25f
   # upon container build `web` runs default CMD command from Dockerfile.dev
   tests:
@@ -19,4 +19,3 @@ services:           # services are containers ran on `docker-compose up`
       - /app/node_modules
       - .:/app
     command: ["yarn", "run", "test"]    # overrides default CMD command from Dockerfile.dev
-    
